@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import Camera from './camera'
 
 class webCamFeed extends Component {
-  constructor(){
-    super();
-   /*  this.state = {
-      constraints: { audio: false, video: { width: 400, height: 300 } }
-    } */
-    
-  }
-
   componentDidMount(){
+//    constraints: { audio: false, video: { width: 400, height: 300 } }
     var constraints = {audio: true, video: {width: 480, height: 480}};
     navigator.mediaDevices
       .getUserMedia(constraints)
@@ -22,7 +14,7 @@ class webCamFeed extends Component {
         }
       })
       .catch(function(err){
-        console.log(err.name + ":" + "err.message");
+        console.log(err.name + ":" + err.message);
       });
   }
 
@@ -30,7 +22,7 @@ class webCamFeed extends Component {
     return (
       <div>
         <div id="container">
-          <video autoPlay={true} id="videoElement"></video>
+          <video autoPlay={true} id="videoElement" muted></video>
         </div>
       </div>
     );

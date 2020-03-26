@@ -1,12 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Webcam from './components/webCamFeed.js'
+import Webcam from './components/webCamFeed'
+import Start from './components/start'
 
 function App() {
   return (
     <div className="App">
         <Webcam />
+        <Start />
     </div>
   );
 }
