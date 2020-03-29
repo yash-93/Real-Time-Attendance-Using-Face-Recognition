@@ -27,5 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('saveattendance.urls')),
     # path('api/', include(router.urls)),
-    url(r'^api/students/$', views.processWebcam)
+    url(r'^api/processDataset/$', views.processDataset),
+    url(r'^api/webcam/$', views.processWebcam),
+    url(r'^api/students/$', views.studentData)
 ]

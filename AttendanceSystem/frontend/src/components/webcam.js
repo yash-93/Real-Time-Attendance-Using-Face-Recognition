@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class start extends Component{
+class webcam extends Component{
     constructor(props){
         super(props);
         this.clickHandle = this.clickHandle.bind(this);
     }
 
-    clickHandle(event){
-        // let url = "http://localhost:8000/api/students/";
-        // axios.get(`${url}`)
-        axios.get('http://localhost:8000/api/students/')
+    clickHandle(){
+        axios.get('http://localhost:8000/api/webcam/')
         .then(res => {
-            console.log(res.data);
+            console.log(res);
         })
         //.then((res)=>{console.log(res)})
         .catch(error => {
@@ -23,10 +21,10 @@ class start extends Component{
     render () {
         return (
         <div>
-            <button onClick={this.clickHandle}>Show Student List</button>
+            <button onClick={this.clickHandle}>Turn Cam on and Detect Students</button>
         </div>
         );
     }
 }
 
-export default start;
+export default webcam;
