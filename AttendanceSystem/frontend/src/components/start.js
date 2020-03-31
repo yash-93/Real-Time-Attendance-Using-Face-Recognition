@@ -45,8 +45,8 @@ class start extends Component{
         return (
         <div className="container">
             <div className="row">
-                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.presentStudentsClickHandle}>Show Present Student List</button></div>
-                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.defaulterStudentsClickHandle}>Show Defaulters' List</button></div>
+                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.presentStudentsClickHandle}>Show Present Students List</button></div>
+                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.defaulterStudentsClickHandle}>Show Defaulter's List</button></div>
             </div>
             <br></br>
             <br></br>
