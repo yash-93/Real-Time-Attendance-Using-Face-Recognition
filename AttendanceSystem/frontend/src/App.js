@@ -7,9 +7,12 @@ import Start from './components/start'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App container" >
+        <br></br>
         <Webcam />
+        <br></br>
         <Start />
+        
       </div>
     );
   }

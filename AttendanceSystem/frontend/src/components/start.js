@@ -1,29 +1,59 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PresentStudents from './presentStudents';
+import DefaulterStudents from './defaulterStudents';
 
 class start extends Component{
     constructor(props){
         super(props);
-        this.clickHandle = this.clickHandle.bind(this);
+        this.state = {
+            presentList: [],
+            defaulterList: []
+        }
+        this.presentStudentsClickHandle = this.presentStudentsClickHandle.bind(this);
+        this.defaulterStudentsClickHandle = this.defaulterStudentsClickHandle.bind(this);
     }
 
-    clickHandle(event){
+    presentStudentsClickHandle(event){
         // let url = "http://localhost:8000/api/students/";
         // axios.get(`${url}`)
         axios.get('http://localhost:8000/api/students/')
         .then(res => {
-            console.log(res.data);
+            this.setState({
+                presentList: res.data
+            })
         })
-        //.then((res)=>{console.log(res)})
+        .catch(error => {
+            console.log("login error", error)
+        });
+    }
+
+    defaulterStudentsClickHandle(event){
+        axios.get('http://localhost:8000/api/students/')
+        .then(res => {
+            this.setState({
+                defaulterList: res.data
+            })
+        })
         .catch(error => {
             console.log("login error", error)
         });
     }
 
     render () {
+
         return (
-        <div>
-            <button onClick={this.clickHandle}>Show Student List</button>
+        <div className="container">
+            <div className="row">
+                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.presentStudentsClickHandle}>Show Present Student List</button></div>
+                <div className="col"><button className="btn btn-primary btn-lg" onClick={this.defaulterStudentsClickHandle}>Show Defaulters' List</button></div>
+            </div>
+            <br></br>
+            <br></br>
+            <div className="row">
+                <div className="col"><PresentStudents presentList={this.state.presentList} /></div>
+                <div className="col"><DefaulterStudents defaulterList={this.state.defaulterList}/></div>
+            </div>
         </div>
         );
     }

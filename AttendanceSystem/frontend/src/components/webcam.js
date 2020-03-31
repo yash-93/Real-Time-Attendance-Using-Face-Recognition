@@ -10,7 +10,7 @@ class webcam extends Component{
     clickHandle(){
         axios.get('http://localhost:8000/api/webcam/')
         .then(res => {
-            console.log(res);
+            console.log(res.data);
         })
         //.then((res)=>{console.log(res)})
         .catch(error => {
@@ -21,7 +21,7 @@ class webcam extends Component{
     render () {
         return (
         <div>
-            <button onClick={this.clickHandle}>Turn Cam on and Detect Students</button>
+            <button className="btn btn-primary btn-lg" onClick={this.clickHandle}>Turn Cam on and Recognize Students</button>
         </div>
         );
     }

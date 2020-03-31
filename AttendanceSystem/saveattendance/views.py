@@ -12,20 +12,24 @@ import imutils
 
 from datetime import datetime
 
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .serializers import StudentDataSerializer
 from .models import StudentData
 
-@api_view(['GET'])
-def studentData(request):
-    if request.method == 'GET':
-        # studentData_instance = StudentData.objects.create(name='sandeep', departure_time=datetime.now())
-        queryset = StudentData.objects.all()
-        serializer = StudentDataSerializer(queryset, context={'request': request}, many=True)
-    return Response({'data': serializer.data})
+# @api_view(['GET'])
+# def studentData(request):
+#     if request.method == 'GET':
+#         # studentData_instance = StudentData.objects.create(name='sandeep', departure_time=datetime.now())
+#         queryset = StudentData.objects.all()
+#         serializer = StudentDataSerializer(queryset, context={'request': request}, many=True)
+#     return Response({'data': serializer.data})
+
+class studentData(generics.ListCreateAPIView):
+    queryset = StudentData.objects.all()
+    serializer_class = StudentDataSerializer
 
 
 @api_view(['GET'])
@@ -56,6 +60,7 @@ def processDataset(request):
 def processWebcam(request):
     if request.method == 'GET':
         data = pickle.loads(open('encodings.pickle', "rb").read())
+        res_names = []
         vs = VideoStream(0).start()
         while True:
             frame = vs.read()
@@ -74,6 +79,12 @@ def processWebcam(request):
                     name = data["names"][best_match_index]
                 names.append(name)
 
+
+            unique_names = np.unique(names)
+            for tname in unique_names:
+                if tname not in res_names:
+                    res_names.append(tname)
+
             for ((top, right, bottom, left), name) in zip(boxes, names):
                 top = int(top * r)
                 right = int(right * r)
@@ -89,7 +100,10 @@ def processWebcam(request):
                 break
         cv2.destroyAllWindows()
         vs.stop()
+
+        for name in res_names:
+            StudentData.objects.create(name=name, departure_time=datetime.now())
         # queryset = StudentData.objects.all()
         # serializer = StudentDataSerializer(queryset, context={'request': request}, many=True)
-    return Response()
+    return Response({'data': res_names})
 
