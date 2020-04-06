@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls import url
-import saveattendance
+from . import views
 from django.views.generic import TemplateView
 
 from rest_framework import routers
@@ -25,7 +25,9 @@ from rest_framework import routers
 # router.register(r'student', views.processWebcam, 'studentData')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('', include('saveattendance.urls')),
     # path('api/', include(router.urls)),
-    path('api/', include('saveattendance.urls')),
+    url(r'^processDataset/$', views.processDataset),
+    url(r'^webcam/$', views.processWebcam),
+    url(r'^students/$', views.studentData.as_view()),
 ]

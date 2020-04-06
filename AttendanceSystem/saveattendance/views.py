@@ -35,7 +35,8 @@ class studentData(generics.ListCreateAPIView):
 @api_view(['GET'])
 def processDataset(request):
     if request.method == 'GET':
-        imagePaths = list(paths.list_images('D:\Yashdeep\DeepLearningProjects\Real Time Attendance System Using Face Recognition\AttendanceSystem\static\dataset'))
+        # imagePaths = list(paths.list_images('D:\Yashdeep\DeepLearningProjects\Real Time Attendance System Using Face Recognition\AttendanceSystem\dataset'))
+        imagePaths = list(paths.list_images(os.path.join(os.getcwd(), 'dataset')))
         knownEncodings = []
         knownNames = []
         for i, imagePath in enumerate(imagePaths):
