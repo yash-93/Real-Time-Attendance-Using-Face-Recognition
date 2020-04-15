@@ -58,7 +58,7 @@ ROOT_URLCONF = 'AttendanceSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,25 +84,25 @@ WSGI_APPLICATION = 'AttendanceSystem.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'attendance',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': '127.0.0.1',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'AttendanceSystem',
-        'USER': 'postgres',
-        'PASSWORD': '1397',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'attendance',
+        'USER': 'root',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'AttendanceSystem',
+#         'USER': 'postgres',
+#         'PASSWORD': '1397',
+#         'HOST': '127.0.0.1',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -141,5 +141,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static')
+]
 
 CORS_ORIGIN_ALLOW_ALL = True

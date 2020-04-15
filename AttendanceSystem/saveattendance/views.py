@@ -16,8 +16,8 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import StudentDataSerializer
-from .models import StudentData
+from .serializers import StudentDataSerializer, DefaultersDataSerializer
+from .models import StudentData, DefaultersData
 
 # @api_view(['GET'])
 # def studentData(request):
@@ -31,11 +31,13 @@ class studentData(generics.ListCreateAPIView):
     queryset = StudentData.objects.all()
     serializer_class = StudentDataSerializer
 
+class defaultersData(generics.ListCreateAPIView):
+    queryset = DefaultersData.objects.all()
+    serializer_class = DefaultersDataSerializer
 
 @api_view(['GET'])
 def processDataset(request):
     if request.method == 'GET':
-        # imagePaths = list(paths.list_images('D:\Yashdeep\DeepLearningProjects\Real Time Attendance System Using Face Recognition\AttendanceSystem\dataset'))
         imagePaths = list(paths.list_images(os.path.join(os.getcwd(), 'dataset')))
         knownEncodings = []
         knownNames = []
@@ -103,7 +105,7 @@ def processWebcam(request):
         vs.stop()
 
         for name in res_names:
-            StudentData.objects.create(name=name, departure_time=datetime.now())
+            StudentData.objects.create(name=name, arrival_time=datetime.now().time(), departure_time=datetime.now().time())
         # queryset = StudentData.objects.all()
         # serializer = StudentDataSerializer(queryset, context={'request': request}, many=True)
     return Response({'data': res_names})

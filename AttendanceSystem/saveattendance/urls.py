@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^processDataset/$', views.processDataset),
     url(r'^webcam/$', views.processWebcam),
     url(r'^students/$', views.studentData.as_view()),
+    url(r'^defaulters/$', views.defaultersData.as_view())
 ]

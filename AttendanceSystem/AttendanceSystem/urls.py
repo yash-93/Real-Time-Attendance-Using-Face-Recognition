@@ -18,6 +18,7 @@ from django.urls import path, include, re_path
 from django.conf.urls import url
 import saveattendance
 from django.views.generic import TemplateView
+from . import views
 
 from rest_framework import routers
 
@@ -28,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include(router.urls)),
     path('api/', include('saveattendance.urls')),
+    url(r'^', views.FrontendAppView.as_view())
 ]

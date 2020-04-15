@@ -8,7 +8,7 @@ class webcam extends Component{
     }
 
     clickHandle(){
-        axios.get('http://localhost:8000/api/webcam/')
+        axios.get('http://127.0.0.1:8000/api/webcam/')
         .then(res => {
             console.log(res.data);
         })
