@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Students from './presentStudents';
 import DefaulterStudents from './defaulterStudents';
+import 'local-storage';
 
 class start extends Component{
     constructor(props){
@@ -14,6 +15,19 @@ class start extends Component{
         this.defaulterStudentsClickHandle = this.defaulterStudentsClickHandle.bind(this);
         this.delete = this.delete.bind(this);
     }
+    
+    componentDidMount(){
+        if(window.sessionStorage.getItem("defaulterList") != null){
+            this.setState({
+                defaulterList: JSON.parse(window.sessionStorage.getItem("defaulterList"))
+            })
+        }
+        if(window.sessionStorage.getItem("presentList") != null){
+            this.setState({
+                presentList: JSON.parse(window.sessionStorage.getItem("presentList"))
+            })
+        }
+    }
 
     presentStudentsClickHandle(event){
         // let url = "http://localhost:8000/api/students/";
@@ -22,7 +36,8 @@ class start extends Component{
         .then(res => {
             this.setState({
                 presentList: res.data
-            })
+            });
+            window.sessionStorage.setItem('presentList', JSON.stringify(this.state.presentList))
         })
         .catch(error => {
             console.log(error)
@@ -35,6 +50,7 @@ class start extends Component{
             this.setState({
                 defaulterList: res.data
             });
+            window.sessionStorage.setItem('defaulterList', JSON.stringify(this.state.defaulterList))
         })
         .catch(error => {
             console.log(error)
@@ -45,6 +61,7 @@ class start extends Component{
         this.setState({
             defaulterList: newList,
         });
+        window.sessionStorage.setItem('defaulterList', JSON.stringify(newList));
     }
 
     render () {
