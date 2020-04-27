@@ -29,5 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include(router.urls)),
     path('api/', include('saveattendance.urls')),
-    url(r'^', views.FrontendAppView.as_view())
+    path('', views.FrontendAppView.as_view()),
+    # url(r'^', views.FrontendAppView.as_view())
 ]

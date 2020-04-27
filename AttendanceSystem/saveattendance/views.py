@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse, StreamingHttpResponse, HttpResponseServerError
+from django.views.decorators import gzip
 
 from imutils.video import VideoStream
 import face_recognition
@@ -109,4 +111,25 @@ def processWebcam(request):
         # queryset = StudentData.objects.all()
         # serializer = StudentDataSerializer(queryset, context={'request': request}, many=True)
     return Response({'data': res_names})
+
+
+def get_frame():
+    global count
+    # camera = cv2.VideoCapture(0)
+    camera = VideoStream(0).start()
+    while True:
+        img = camera.read()
+        imgencode = cv2.imencode('.jpg', img)[1]
+        # stringData = imgencode.toString()
+        print(bytearray(imgencode))
+        return (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
+               bytearray(imgencode) + b'\r\n')
+
+
+@gzip.gzip_page
+def video_feed(request):
+    try:
+        return StreamingHttpResponse(get_frame(), content_type="multipart/x-mixed-replace; boundary=frame")
+    except:
+        return "error"
 
